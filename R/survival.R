@@ -1,5 +1,5 @@
 base_survival = list(
-  parameters = list("real<lower=0, upper=1> lambda[max_S-1]; // Hazard of recovery"),
+  parameters = list("array[max_S-1] real<lower=0, upper=1> lambda; // Hazard of recovery"),
   transformed_parameters_declare = list("vector[max_S] S;"),
   transformed_parameters_code = list(
     "S[1] = 1;",

@@ -23,15 +23,15 @@ pa_double_censor = function(prev_neg, first_pos, last_pos, first_neg) {
     data_code = list(
       "int<lower=0> n_a; // Number of episodes",
       "int<lower=0> max_S; // Number of days to compute survival for",
-      "int E[n_a]; // Day of previous negative",
-      "int R[n_a]; // Day of first positive",
-      "int L[n_a]; // Day after last positive",
-      "int U[n_a]; // Day of first negative"
+      "array[n_a] int E; // Day of previous negative",
+      "array[n_a] int R; // Day of first positive",
+      "array[n_a] int L; // Day after last positive",
+      "array[n_a] int U; // Day of first negative"
     ),
     transformed_data_declare = list(
-      "int<lower=1, upper=max_S-1> Rdash[n_a]; // Day of first positive",
-      "int<lower=1, upper=max_S-1> Ldash[n_a]; // Day after last positive",
-      "int<lower=2, upper=max_S> Udash[n_a]; // Day of first negative"
+      "array[n_a] int<lower=1, upper=max_S-1> Rdash; // Day of first positive",
+      "array[n_a] int<lower=1, upper=max_S-1> Ldash; // Day after last positive",
+      "array[n_a] int<lower=2, upper=max_S> Udash; // Day of first negative"
     ),
     transformed_data_code = list(
       "for (i in 1:n_a) {",
@@ -41,7 +41,7 @@ pa_double_censor = function(prev_neg, first_pos, last_pos, first_neg) {
       "}"
     ),
     transformed_parameters_declare = list(
-      "real ll_numerator[n_a];"
+      "array[n_a] real ll_numerator;"
     ),
     transformed_parameters_code = list(
       "for (i in 1:n_a) {",
